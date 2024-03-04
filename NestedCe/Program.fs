@@ -50,17 +50,18 @@ type ContainerBuilder() =
 
 let container = ContainerBuilder()
 
+let daprConfig =
+    dapr {
+        appId "myApp-123"
+        appPort 5000
+        appProtocol "gprs"
+    }
+
 let containerCe =
     container {
         name "My Container"
 
-        dapr {
-            appId "myApp-123"
-            appPort 5000
-            appProtocol "gprs"
-        }
+        dapr daprConfig
     }
 
-containerCe
-|> System.Text.Json.JsonSerializer.Serialize
-|> printfn "%s"
+containerCe |> System.Text.Json.JsonSerializer.Serialize |> printfn "%s"
